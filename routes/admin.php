@@ -13,7 +13,7 @@
 
 Auth::routes();
 
-Route::group(['middleware' => ['auth', 'admin']], function(){
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function(){
 	Route::get('/', function(){
 		return redirect('admin/dashboard');
 	});

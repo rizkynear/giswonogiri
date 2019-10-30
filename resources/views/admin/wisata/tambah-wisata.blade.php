@@ -82,7 +82,7 @@
 @endsection
 
 @section ('js')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5AHP904uqVXHlKhMM7-TXB2825WQEx_A"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVFta2Tdp8n4o6sK7fX87oQVyPDggZZ9Y"></script>
 <script type="text/javascript">
     var peta;
 	var gambar_tanda;

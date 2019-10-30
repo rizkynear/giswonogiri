@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function dataUser(){
         $users = User::where('id', Auth::user()->id)->first();
-        return view('admin.user.data-user', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
     public function updateUser(Request $r, $id){

@@ -14,6 +14,11 @@ use Image;
 
 class WisataController extends Controller
 {
+    public function dataWisata(){
+        $wisatas = Wisata::all();
+        return view('admin.wisata.index', compact('wisatas'));
+    }
+    
     public function tambahWisata(){
         $categories = Category::all();
         return view('admin.wisata.tambah-wisata', compact('categories'));
@@ -60,11 +65,6 @@ class WisataController extends Controller
             Session::flash('error', $validator->messages()->first());
             return redirect()->back()->withInput();
         }
-    }
-
-    public function dataWisata(){
-        $wisatas = Wisata::all();
-        return view('admin.wisata.data-wisata', compact('wisatas'));
     }
 
     public function deleteWisata($id){

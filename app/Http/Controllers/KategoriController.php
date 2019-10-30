@@ -12,6 +12,11 @@ use Image;
 
 class KategoriController extends Controller
 {
+    public function dataKategori(){
+        $categories = Category::all();
+        return view('admin.kategori.index', compact('categories'));
+    }
+    
     public function tambahKategori(){
         return view('admin.kategori.tambah-kategori');
     }
@@ -44,11 +49,6 @@ class KategoriController extends Controller
             Session::flash('error', $validator->messages()->first());
             return redirect()->back()->withInput();
         }
-    }
-
-    public function dataKategori(){
-        $categories = Category::all();
-        return view('admin.kategori.data-kategori', compact('categories'));
     }
 
     public function deleteKategori($id){

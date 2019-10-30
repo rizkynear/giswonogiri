@@ -15,7 +15,7 @@ class PetaController extends Controller
     public function lihatPeta(){
         $wisata = Wisata::with('category')->get();
         $categories = Category::all();
-        return view('admin.peta.peta', compact('wisata', 'categories'));
+        return view('admin.peta.index', compact('wisata', 'categories'));
     }
 
     public function kategoriWisata(Request $request)
@@ -23,7 +23,7 @@ class PetaController extends Controller
         $wisata = Wisata::with('category')->where('id_kategori', $request->id)->get();
         $categories = Category::all();
         $catName = Category::where('id', $request->id)->pluck('kategori')->first();
-        return view('admin.peta.peta', compact('wisata', 'categories', 'catName'));
+        return view('admin.peta.index', compact('wisata', 'categories', 'catName'));
     }
 
     public function search(Request $request)
@@ -37,7 +37,7 @@ class PetaController extends Controller
             // dd($wisata);
             if ($wisata->count() > 0) {
                 Session::flash('success', 'Pencarian "'.$search.'" ditemukan!');
-                return view('admin.peta.peta', compact('categories', 'wisata'));
+                return view('admin.peta.index', compact('categories', 'wisata'));
             } else {
                 // silahkan ganti pesan error sesuai dengan yang diinginkan
                 Session::flash('error', 'Pencarian "'.$search.'" tidak ditemukan! | Sistem menampilkan semua wisata');
@@ -63,7 +63,7 @@ class PetaController extends Controller
         //             return redirect()->back()->with(compact('wisata', 'categories'));
         //         }
             
-        //         return view('admin.peta.peta')->with(['wisata' => $wisata, 'categories' => $categories]);
+        //         return view('admin.peta.index')->with(['wisata' => $wisata, 'categories' => $categories]);
         //     }
         // } else {
         //     Session::flash('error', 'Kolom Pencarian Masih Kosong!');
@@ -71,7 +71,7 @@ class PetaController extends Controller
         //     return redirect()->back()->with(compact('wisata', 'categories'));
         // }
 
-        // return view('admin.peta.peta')->with(['wisata' => $wisata, 'categories' => $categories]);
+        // return view('admin.peta.index')->with(['wisata' => $wisata, 'categories' => $categories]);
 
 
         // $categories = Category::all();
@@ -83,7 +83,7 @@ class PetaController extends Controller
         //     })->get();
         //     if ($wisata) {
         //         Session::flash('success', 'Data Wisata Ditemukan!');
-        //         return view('admin.peta.peta', compact('wisata', 'categories'));
+        //         return view('admin.peta.index', compact('wisata', 'categories'));
         //     } else {
         //         Session::flash('error', 'Data Wisata Tidak Ditemukan!');
         //         $wisata = Wisata::all();

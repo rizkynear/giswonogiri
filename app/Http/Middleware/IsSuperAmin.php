@@ -15,6 +15,10 @@ class IsSuperAmin
      */
     public function handle($request, Closure $next)
     {
+        if ($request->user() && $request->user()->status !== 'superAdmin') {
+            return redirect('home');
+        }
+
         return $next($request);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class IsSuperAmin
+class IsAnonymous
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,10 @@ class IsSuperAmin
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && $request->user()->status !== 'super-admin') {
-            return redirect('home');
+        if ($request->user() && $request->user()->status === 'admin') {
+            return redirect('admin');
+        } elseif ($request->user() && $request->user()->status === 'super-admin') {
+            return redirect('super-admin');
         }
 
         return $next($request);

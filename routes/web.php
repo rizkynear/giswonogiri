@@ -11,14 +11,16 @@
 |
 */
 
-Route::get('/home', function () {
-    return view('welcome');
-});
-
-Route::get('/about', function(){
-	return view('about');
-});
-
-Route::get('/peta', function(){
-	return view('peta');
+Route::group(['middleware' => 'anonymous'], function() {
+	Route::get('/home', function () {
+		return view('welcome');
+	});
+	
+	Route::get('/about', function(){
+		return view('about');
+	});
+	
+	Route::get('/peta', function(){
+		return view('peta');
+	});
 });

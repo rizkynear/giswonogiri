@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes(['register' => false]);
+
 Route::group(['middleware' => 'anonymous'], function() {
 	Route::get('/home', function () {
 		return view('welcome');

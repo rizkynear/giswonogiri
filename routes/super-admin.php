@@ -11,41 +11,19 @@
 |
 */
 
-Auth::routes();
-
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'super.admin']], function(){
+Route::group(['namespace' => 'SuperAdmin', 'middleware' => ['auth', 'super.admin']], function(){
 	Route::get('/', function(){
 		return redirect('super-admin/dashboard');
 	});
 
 	Route::get('dashboard', 'DashboardController@indexDashboard');
 
-	Route::group(['prefix' => 'kategori'], function() {
-		Route::get('tambah-kategori', 'KategoriController@tambahKategori');
-		Route::post('tambah-kategori', 'KategoriController@simpanKategori');
-		Route::get('data-kategori', 'KategoriController@dataKategori');
-		Route::delete('data-kategori/{id}', 'KategoriController@deleteKategori');
-		Route::get('{id}/edit-kategori', 'KategoriController@editKategori');
-		Route::put('{id}/edit-kategori', 'KategoriController@updateKategori');
-	});
-
-	Route::group(['prefix' => 'peta'], function() {
-		Route::get('peta', 'PetaController@lihatPeta')->name('peta.index');
-		Route::get('peta/kategori/{id}', 'PetaController@kategoriWisata');
-		Route::get('peta/search', 'PetaController@search');
-	});
-
-	Route::group(['prefix' => 'user'], function() {
-		Route::get('data-user', 'UserController@dataUser');
-		Route::put('data-user/{id}/edit-user', 'UserController@updateUser');
-	});
-	
-	Route::group(['prefix' => 'wisata'], function() {
-		Route::get('tambah-wisata', 'WisataController@tambahWisata');
-		Route::post('tambah-wisata', 'WisataController@simpanWisata');
-		Route::get('data-wisata', 'WisataController@dataWisata');
-		Route::delete('data-wisata/{id}', 'WisataController@deleteWisata');
-		Route::get('{id}/edit-wisata', 'WisataController@editWisata');
-		Route::put('{id}/edit-wisata', 'WisataController@updateWisata');
+	Route::group(['prefix' => 'admin'], function() {
+		Route::get('tambah-admin', 'AdminController@tambahAdmin');
+		Route::post('tambah-admin', 'AdminController@simpanAdmin');
+		Route::get('data-admin', 'AdminController@dataAdmin');
+		Route::delete('data-admin/{id}', 'AdminController@deleteAdmin');
+		// Route::get('{id}/edit-admin', 'adminController@editadmin');
+		// Route::put('{id}/edit-admin', 'adminController@updateadmin');
 	});
 });

@@ -31,41 +31,41 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Data Destinasi Wisata</h2>
+            <h2>Data Admin</h2>
             <div class="clearfix"></div>
           </div>
-          <a href="{{url('admin/wisata/tambah-wisata')}}" class="btn btn-primary">Tambah Data Wisata</a>
+          <a href="{{url('super-admin/admin/tambah-admin')}}" class="btn btn-primary">Tambah Admin</a>
           <div class="x_content">
             <table id="datatable" class="table table-striped table-bordered">
-              <thead style="font-size:12px">
+              <thead>
                 <tr>
                   <th width="25px"><center>No</center></th>
-                  <th><center>Nama Wisata</center></th>
-                  <th><center>Kategori</center></th>
-                  <th><center>Longitude</center></th>
-                  <th><center>Latitude</center></th>
+                  <th><center>Nama</center></th>
+                  <th><center>Username</center></th>
+                  <th><center>Email</center></td>
                   <th><center>Foto</center></th>
+                  <th><center>Status</center></th>
+                  <th><center>Tanggal Dibuat</center></th>
                   <th><center>Opsi</center></th>
                 </tr>
               </thead>
-              <tbody style="font-size:12px">
+              <tbody>
                 @php
                     $no = 1;
                 @endphp
-                @foreach ($wisatas as $wisata)
+                @foreach ($admins as $admin)
                     <tr>
                         <td><center> {{$no++}} </center></td>
-                        <td><center> {{$wisata->nama}} </center></td>
-                        <td><center> {{$wisata->category->kategori}} </center></td>
-                        <td><center> {{$wisata->long}} </center></td>
-                        <td><center> {{$wisata->lat}} </center></td>
+                        <td><center> {{$admin->nama}} </center></td>
+                        <td><center> {{$admin->username}} </center></td>
+                        <td><center> {{$admin->email}} </center></td>
                         <td><center> 
-                            <img src="{{asset('backend/images/fotowisata/'.$wisata->foto)}}" class="img-responsive">
+                            <img src="{{asset('backend/images/fotoprofil/'.$admin->foto)}}" class="img-responsive">
                          </center></td>
+                        <td><center> {{$admin->status}} </center></td>
+                        <td><center> {{ isset($admin->created_at) ? $admin->created_at->format('d-m-Y') : '-' }} </center></td>
                         <td><center>
-                            <a href="{{url('admin/wisata/'.$wisata->id.'/edit-wisata')}}" class="fa fa-pencil"></a>
-                            {{--  <a href="javascript:void(0)" class="fa fa-pencil" onclick="editModal('{{json_encode($periode)}}')"></a>  --}}
-                            <a href="javascript:void(0)" class="fa fa-trash" onclick="deleteWisata('{{$wisata->id}}')"></a>
+                            <a href="javascript:void(0)" class="fa fa-trash" onclick="deleteAdmin('{{$admin->id}}')"></a>
                         </center></td>
                     </tr>
                 @endforeach
@@ -92,10 +92,10 @@
     <script src="{{asset('backend/plugins/bootbox.min.js')}}"></script>
     <script type="text/javascript">
 
-    function deleteWisata(id){
+    function deleteAdmin(id){
         bootbox.confirm("Apakah anda ingin menghapus data ini ?", function(result){
             if (result) {
-                $('#formDelete').attr('action', '{{url('admin/wisata/data-wisata')}}/'+id);
+                $('#formDelete').attr('action', '{{url('super-admin/admin/data-admin')}}/'+id);
                 $('#formDelete').submit();
             }
         });

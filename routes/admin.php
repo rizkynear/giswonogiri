@@ -11,8 +11,6 @@
 |
 */
 
-Auth::routes();
-
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function(){
 	Route::get('/', function(){
 		return redirect('admin/dashboard');

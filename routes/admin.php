@@ -28,9 +28,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'admin']], functi
 	});
 
 	Route::group(['prefix' => 'peta'], function() {
-		Route::get('peta', 'PetaController@lihatPeta')->name('peta.index');
-		Route::get('peta/kategori/{id}', 'PetaController@kategoriWisata');
-		Route::get('peta/search', 'PetaController@search');
+		Route::get('/', 'PetaController@lihatPeta')->name('peta.index');
+		Route::get('kategori/{id}', 'PetaController@kategoriWisata');
+		Route::get('search', 'PetaController@search');
 	});
 
 	Route::group(['prefix' => 'user'], function() {

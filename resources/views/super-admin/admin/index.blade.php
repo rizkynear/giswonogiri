@@ -54,6 +54,7 @@
                     $no = 1;
                 @endphp
                 @foreach ($admins as $admin)
+                  @if(! $admin->trashed())
                     <tr>
                         <td><center> {{$no++}} </center></td>
                         <td><center> {{$admin->nama}} </center></td>
@@ -62,12 +63,28 @@
                         <td><center> 
                             <img src="{{asset('backend/images/fotoprofil/'.$admin->foto)}}" class="img-responsive">
                          </center></td>
-                        <td><center> {{$admin->status}} </center></td>
+                        <td><center> Aktif </center></td>
                         <td><center> {{ isset($admin->created_at) ? $admin->created_at->format('d-m-Y') : '-' }} </center></td>
                         <td><center>
                             <a href="javascript:void(0)" class="fa fa-trash" onclick="deleteAdmin('{{$admin->id}}')"></a>
                         </center></td>
                     </tr>
+                  @else
+                  <tr>
+                        <td><center> {{$no++}} </center></td>
+                        <td><center> {{$admin->nama}} </center></td>
+                        <td><center> {{$admin->username}} </center></td>
+                        <td><center> {{$admin->email}} </center></td>
+                        <td><center> 
+                            <img src="{{asset('backend/images/fotoprofil/'.$admin->foto)}}" class="img-responsive">
+                         </center></td>
+                        <td><center> Tidak Aktif </center></td>
+                        <td><center> {{ isset($admin->created_at) ? $admin->created_at->format('d-m-Y') : '-' }} </center></td>
+                        <td><center>
+                            <a href="javascript:void(0)" class="fa fa-repeat" onclick="restoreAdmin('{{$admin->id}}')"></a>
+                        </center></td>
+                    </tr>
+                  @endif
                 @endforeach
               </tbody>
             </table>
@@ -81,6 +98,11 @@
     {{ csrf_field() }}
     <input type="hidden" name="_method" value="delete">
 </form>
+
+<form class="hidden" action="" method="post" id="formRestore">
+    {{ csrf_field() }}
+    <input type="hidden" name="_method" value="put">
+</form>
 <!-- /page content -->
 @endsection
 
@@ -93,10 +115,19 @@
     <script type="text/javascript">
 
     function deleteAdmin(id){
-        bootbox.confirm("Apakah anda ingin menghapus data ini ?", function(result){
+        bootbox.confirm("Apakah anda ingin menonaktifkan akun ini ?", function(result){
             if (result) {
-                $('#formDelete').attr('action', '{{url('super-admin/admin/data-admin')}}/'+id);
+                $('#formDelete').attr('action', '{{url("super-admin/admin/data-admin")}}/'+id);
                 $('#formDelete').submit();
+            }
+        });
+    }
+
+    function restoreAdmin(id){
+        bootbox.confirm("Apakah anda ingin mengaktifkan akun ini ?", function(result){
+            if (result) {
+                $('#formRestore').attr('action', '{{url("super-admin/admin/data-admin")}}/'+id);
+                $('#formRestore').submit();
             }
         });
     }

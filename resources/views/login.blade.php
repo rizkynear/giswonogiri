@@ -1,48 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | Page</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{asset('backend/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('backend/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-    <link href="{{asset('backend/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
-    <link href="{{asset('backend/vendors/animate.css/animate.min.css')}}" rel="stylesheet">
-    <link href="{{asset('backend/build/css/custom.min.css')}}" rel="stylesheet">
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/vendor/bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/vendor/animate/animate.css') }}">	
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/vendor/css-hamburgers/hamburgers.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/vendor/animsition/css/animsition.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/vendor/select2/select2.min.css') }}">	
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/vendor/daterangepicker/daterangepicker.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('backend/login/css/main.css') }}">
 </head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
+				<form class="login100-form validate-form flex-sb flex-w" method="post" action="{{ route('login') }}">
+                    @csrf
+					<span class="login100-form-title p-b-32 text-center">
+						SIG Wonogiri Login
+					</span>
 
-<body class="login">
-    <div>
-        <div class="login_wrapper">
-            <div class="animate form login_form">
-                <div class="box">
-                    <div class="box-body">
-                        <section class="login_content">
-                            <form action="{{ route('login') }}" method="POST">
-                                @csrf
-                                <h1>SIG Destinasi Wisata Wonogiri</h1>
-                                <div>
-                                    <input type="email" name="email" class="form-control" placeholder="Email" required="" />
-                                </div>
-                                <div>
-                                    <input type="password" name="password" class="form-control" placeholder="Password" required="" />
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary btn-block">Login</button>
-                                </div>
-
-                                <div class="clearfix"></div>
-                            </form>
-                        </section>
+					<span class="txt1 p-b-11 login100-form">
+						Email
+					</span>
+					<div class="wrap-input100 m-b-10">
+						<input class="input100" type="text" name="email" value="{{ old('email') }}">
+                        <span class="focus-input100"></span>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+                    
+                    <div class="m-b-25 login100-form">
+                        <span class="invalid-feedback" style="display: block">
+                            {{ $errors->has('email') ? $errors->first('email') : '' }}
+                        </span>
+                    </div>
+					
+					<span class="txt1 p-b-11 login100-form">
+						Password
+					</span>
+					<div class="wrap-input100 m-b-10">
+						<span class="btn-show-pass">
+							<i class="fa fa-eye"></i>
+						</span>
+						<input class="input100" type="password" name="password" >
+						<span class="focus-input100"></span>
+                    </div>
+                    
+                    <div class="m-b-30 login100-form">
+                        <span class="invalid-feedback" style="display: block">
+                            {{ $errors->has('password') ? $errors->first('password') : '' }}
+                        </span>
+                    </div>
 
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script src="{{ asset('backend/login/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/animsition/js/animsition.min.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/select2/select2.min.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/daterangepicker/daterangepicker.js') }}"></script>
+	<script src="{{ asset('backend/login/vendor/countdowntime/countdowntime.js') }}"></script>
+	<script src="{{ asset('backend/login/js/main.js') }}"></script>
+
+</body>
 </html>

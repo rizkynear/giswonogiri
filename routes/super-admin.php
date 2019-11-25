@@ -20,9 +20,10 @@ Route::group(['namespace' => 'SuperAdmin', 'middleware' => ['auth', 'super.admin
 
 	Route::group(['prefix' => 'admin'], function() {
 		Route::get('tambah-admin', 'AdminController@tambahAdmin');
-		Route::post('tambah-admin', 'AdminController@simpanAdmin');
+		Route::post('tambah-admin', '\App\Http\Controllers\Auth\RegisterController@register');
 		Route::get('data-admin', 'AdminController@dataAdmin');
 		Route::delete('data-admin/{id}', 'AdminController@deleteAdmin');
+		Route::put('data-admin/{id}', 'AdminController@restoreAdmin');
 		// Route::get('{id}/edit-admin', 'adminController@editadmin');
 		// Route::put('{id}/edit-admin', 'adminController@updateadmin');
 	});

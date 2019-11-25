@@ -349,6 +349,6 @@
                       1. MENGHILANGKAN DEFAULT CONTROL PADA TAMPILAN MAPS
                         disableDefaultUI: true
                    -->
-                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVFta2Tdp8n4o6sK7fX87oQVyPDggZZ9Y&callback=myMap" type="text/javascript"></script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAobFIZz9uFEG7zrFVU4W3r7XIIZ9dZeME&callback=myMap" type="text/javascript"></script>
     </body>
 </html>

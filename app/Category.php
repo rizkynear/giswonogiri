@@ -12,7 +12,7 @@ class Category extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App\User', 'id_user');
+        return $this->belongsTo('App\User', 'id_user')->withTrashed();
     }
     public function wisata(){
         return $this->hasOne('App\Wisata');

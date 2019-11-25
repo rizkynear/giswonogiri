@@ -29,7 +29,7 @@
                 <li><a href="{{url('admin/wisata/data-wisata')}}">Wisata</a></li>
               </ul>
             </li>
-            <li><a href="{{url('admin/peta/peta')}}"><i class="fa fa-map"></i> Peta Wisata </a></li>
+            <li><a href="{{url('admin/peta')}}"><i class="fa fa-map"></i> Peta Wisata </a></li>
           </ul>
         </div>
       @elseif (Request::is('super-admin/*'))

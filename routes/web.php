@@ -13,16 +13,10 @@
 
 Auth::routes(['reset' => false]);
 
+
 Route::group(['middleware' => 'anonymous'], function() {
-	Route::get('/home', function () {
-		return view('welcome');
-	});
-	
-	Route::get('/about', function(){
-		return view('about');
-	});
-	
-	Route::get('/peta', function(){
-		return view('peta');
-	});
+	Route::get('/', 'HomeController@index')->name('home');
+
+	Route::get('peta', 'PetaController@index')->name('home.peta');
+	Route::post('peta/search', 'PetaController@search')->name('home.peta.search');
 });

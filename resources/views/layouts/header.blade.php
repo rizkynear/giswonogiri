@@ -13,8 +13,9 @@
               <span class=" fa fa-angle-down"></span>
             </a>
             <ul class="dropdown-menu dropdown-usermenu pull-right">
-              <li><a href="{{url('admin/user/data-user')}}"> Profile</a></li>
-              {{-- <li><a href="{{url('admin/user/'.$users->nama.'/edit-user')}}"> Profile</a></li> --}}
+              @if (Request::is('admin/*'))
+                <li><a href="{{url('admin/user/data-user')}}"> Profile</a></li>
+              @endif
               <li><a href="javascript:;">Help</a></li>
               <li><a href="{{route('logout')}}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

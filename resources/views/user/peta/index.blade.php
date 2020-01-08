@@ -1,107 +1,80 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sig Wonogiri - Peta</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- manual style -->
+    <link href=" {{asset('backend/vendors/font-awesome/font-awesome/css/font-awesome.min.css')}} " rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style_for_maps.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-
-<body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal">Peta Lokasi Wisata</h5>
-        <form action="{{ url('admin/peta/search') }}" method="GET" class="form-inline">
-            <input type="text" name="keyword" class="form-control mr-2" id="search" placeholder="Input Kata Kunci">
-            <button type="submit" class="btn btn-secondary mr-2">
-                Cari
-            </button>
-        </form>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <button class="btn btn-success dropdown-toggle mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                @php
-                if (!isset($catName)) {
-                $catName = '';
-                }
-                @endphp
-                {{ $catName == '' ? 'Pilih Kategori' : $catName }}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{ url('admin/peta') }}">Semua Kategori</a>
-                @foreach ($categories as $cat)
-                <a class="dropdown-item" href="{{ url('admin/peta/kategori/'.$cat->id) }}">{{ $cat->kategori }}</a>
-                @endforeach
-            </div>
-            <a class="btn btn-danger" type="button" href="{{ url('admin/dashboard') }}">
-                Dashboard
-            </a>
-        </nav>
-    </div>
-    <!-- mengatur tampilan maps dengan id div=googlemap -->
-    <div class="container-fluid">
-        @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> Information !</h4>
-            {{Session::get('success')}}
-        </div>
-        @elseif (Session::has('error'))
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> Information !</h4>
-            {{Session::get('error')}}
-        </div>
-        @endif
-        <div id="googleMap" style="width:100%;height:100vh;"></div>
-
-        <!-- Modal -->
-        <!-- @foreach ($wisata as $wis)
-                <div class="modal fade" id="{{ $wis->id }}modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Info Wisata</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body d-flex justify-content-center align-item-center">
-                            <div class="card" style="width: 100%">
-                            <img class="card-img-top" src="{{ asset('backend/images/fotowisata/'.$wis->foto) }}" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $wis->nama }}</h5>
-                                    <p class="card-text">{{ $wis->keterangan }}</p>
-                                    <p class="card-text"><small class="text-muted">{{ $wis->alamat }}</small></p>
-                                    <p class="card-text"><small class="text-muted">Telepon : {{ $wis->no_telp }}</small></p>
-                                </div>
+<body>  
+    
+    <main>
+        <section>
+            <div class="bg-board">
+                <div id="googleMap" style="width:100%;height:100vh;"></div>
+                <div class="page-header over-map" style="width: 100%; padding: 5px 50px;">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="logo">
+                                Sig Wonogiri                                    
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <div class="col-xs-4">
+                            <form id="form-search">
+                                <div class="group-input">
+                                    <input type="text" class="form-control" name="search" placeholder="Search for...">
+                                    <button class="btn btn-default btn-search category" type="button"><i class="fa fa-search"></i></button>
+                                    <a href="{{ route('home') }}" class="btn btn-danger"><i class="fa fa-sign-out"></i></a>
+                                </div><!-- /input-group -->
+                            </form>
                         </div>
                     </div>
+                </div>
+                <div class="content-list over-map fr" style="width: 30%; top: 125px">
+                    <div class="list-board">
+                        <div class="over-flow">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-info header">Kategori</li>
+                                <li class="list-group-item"><input type="radio" name="id" class="category" value="all"> Semua Kategori</li>
+                                @foreach ($categories as $category)
+                                    <li class="list-group-item"><input type="radio" name="id" class="category" value="{{ $category->id }}"> {{ $category->kategori }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            @endforeach -->
-    </div>
+            </div>
+        </section>
+    </main>
+
+    <form action="{{ route('home.peta.search') }}" method="get" id="form-search">
+        <input type="hidden" name="id" id="kategori-id">
+    </form>
+
+    <!-- Latest compiled and minified JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <!--
-            <br>
-            <h1>MAP 2</h1>
-            <div id="googleMap2" style="width:50%;height:400px;"></div>
-            <br>
-            <h1>MAP 3</h1>
-            <div id="googleMap3" style="width:50%;height:400px;"></div>
-            <br>
-            <h1>MAP4</h1>
-            <div id="googleMap4" style="width:50%;height:400px;"></div>
-            <br>
-            <h1>MAP 5</h1>
-            <div id="googleMap5" style="width:50%;height:400px;"></div>
-            -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
-        var wisata = {!! json_encode($wisata->toArray()) !!}
-        
+        var wisata = {!! json_encode($wisatas->toArray()) !!};
+
+        // $('.category').click(function() {
+        //     var value = $("input[name='id']:checked").val();
+
+        //     $('#kategori-id').attr('value', value);
+        //     $('#form-search').submit();
+        // });
+
+
         var pos;
         var latit;
         var longit;
@@ -124,15 +97,50 @@
 
             directionsDisplay.setMap(map);
 
-            wisata.forEach(function(wisata) {
-                var coordinates = {
-                    lat: parseFloat(wisata.lat),
-                    lng: parseFloat(wisata.long)
+            $('#form-search').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                
+                if (keyCode === 13) { 
+                    e.preventDefault();
+
+                    $('button.category').trigger('click');
                 }
-                addMarker(coordinates, wisata);
-            })
+            });
 
+            $('.category').click(function() {
+                var value  = $("input[name='id']:checked").val();
+                var search = $("input[name='search']").val();
 
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('home.peta.search') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id: value,
+                        search: search
+                    },
+                    success: function(callback) {
+                        reloadMarkers();
+
+                        $.each(callback.wisatas, function(key, wisata) {
+                            var coordinates = {
+                                lat: parseFloat(wisata.lat),
+                                lng: parseFloat(wisata.long)
+                            }
+
+                            addMarker(coordinates, wisata);
+                        })
+                    }
+                });
+            });
+
+            function reloadMarkers() {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null);
+                }
+                
+                markers = [];
+            }
 
             function addMarker(coordinates, wisata) {
                 var path = '/backend/images/marker/';
@@ -191,6 +199,8 @@
                     '<p>' + wisata.keterangan + '</p>' +
                     '</div>' +
                     '</div>' +
+                    '<div class="btn btn-50 btn-primary"> <p>Rute</p> </div>' +
+                    '<div class="btn btn-50 btn-primary"> <p>Navigasi</p> </div>' +
                     '</div>' +
                     '</div>' +
                     '</div>';
@@ -282,5 +292,4 @@
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRt2sZGA36bo9UG78KLWo-v1LpUdqxxMA&callback=myMap" type="text/javascript"></script>
 </body>
-
 </html>

@@ -1,0 +1,80 @@
+.header-bar{
+    padding: 20px 0;
+}
+.list-board{
+    height: 80vh;
+    width: 85%;
+    overflow: auto;
+}
+.header{
+    text-align: center;
+    font-size: 2rem;
+}
+.fr {
+    margin-left: 915px;
+}
+.logo{
+    font-size: 2rem;
+    border: solid 5px lightblue;
+    background :#fff;
+    color:lightblue;
+    border-radius: 5px;
+    text-align: center;
+    padding: 7px;
+    font-weight: 600;
+}
+.btn-search{
+    margin: 0 10px;
+}
+.group-input input{
+    width: 68%;
+    display: inline-block;
+    padding: 25px;
+}
+.group-input button{
+    background: rgb(110, 187, 212);
+    color: #fff;
+    padding: 15px 17px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    outline: none;
+    transition: .7s ease;
+}
+
+.group-input button:hover {
+    color: rgb(110, 187, 212);
+    background: #fff;
+    border: 1px solid rgb(110, 187, 212);
+}
+
+.group-input a{
+    color: #fff;
+    padding: 15px 17px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    outline: none;
+    transition: .7s ease;
+}
+
+.group-input a:hover {
+    color: #d9534f;
+    background: #fff;
+    border: 1px solid #d9534f;
+}
+
+input {
+    cursor: pointer;
+}
+
+.over-map {
+    position: absolute;
+    z-index: 99;
+    top: 10px;
+    left: 0;
+}
+
+.bg-board {
+    position: relative;
+}

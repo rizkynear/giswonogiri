@@ -325,6 +325,6 @@
             $('#close').show();
         });
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRt2sZGA36bo9UG78KLWo-v1LpUdqxxMA&callback=myMap" type="text/javascript"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=hiya&callback=myMap" type="text/javascript"></script>
 </body>
 </html>

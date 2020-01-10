@@ -3,7 +3,7 @@
 }
 .list-board{
     height: 80vh;
-    width: 85%;
+    width: 95%;
     overflow: auto;
 }
 .header{
@@ -11,7 +11,7 @@
     font-size: 2rem;
 }
 .fr {
-    margin-left: 915px;
+    margin-left: 905px;
 }
 .logo{
     font-size: 2rem;
@@ -27,7 +27,7 @@
     margin: 0 10px;
 }
 .group-input input{
-    width: 68%;
+    width: 49%;
     display: inline-block;
     padding: 25px;
 }

@@ -31,7 +31,10 @@
                             <form id="form-search">
                                 <div class="group-input">
                                     <input type="text" class="form-control" name="search" placeholder="Search for...">
-                                    <button class="btn btn-default btn-search category" type="button"><i class="fa fa-search"></i></button>
+                                    <button class="category" style="display: none" type="button">search</button>
+                                    <button class="btn btn-success btn-search clear" type="button"><i class="fa fa-check"></i></button>
+                                    <button class="btn btn-default btn-search" id="close" type="button"><i class="fa fa-list-ul"></i></button>
+                                    <button class="btn btn-default btn-search" id="show" type="button" style="display: none;"><i class="fa fa-list-ul"></i></button>
                                     <a href="{{ route('home') }}" class="btn btn-danger"><i class="fa fa-sign-out"></i></a>
                                 </div><!-- /input-group -->
                             </form>
@@ -78,7 +81,9 @@
         var pos;
         var latit;
         var longit;
+        var destination = [];
         var markers = [];
+        var direc = [];
 
         function myMap() {
             //mendefinisikan maps
@@ -92,10 +97,13 @@
             };
             var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 
-            var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
+            var directionsService = new google.maps.DirectionsService;
 
             directionsDisplay.setMap(map);
+
+            direc = [];
+            direc.push(directionsDisplay, directionsService);
 
             $('#form-search').on('keyup keypress', function(e) {
                 var keyCode = e.keyCode || e.which;
@@ -105,6 +113,13 @@
 
                     $('button.category').trigger('click');
                 }
+            });
+
+            $('.clear').click(function() {
+                directionsDisplay.setMap(null);
+                hideAllInfoWindows(map);
+                reloadMarkers();
+                $("input[name='id']").prop('checked', false);
             });
 
             $('.category').click(function() {
@@ -199,8 +214,8 @@
                     '<p>' + wisata.keterangan + '</p>' +
                     '</div>' +
                     '</div>' +
-                    '<div class="btn btn-50 btn-primary"> <p>Rute</p> </div>' +
-                    '<div class="btn btn-50 btn-primary"> <p>Navigasi</p> </div>' +
+                    '<button class="btn btn-50 btn-primary" onclick="setDirection()">Rute </button>' +
+                    '<a class="btn btn-primary btn-50" href="https://www.google.com/maps/search/?api=1&query=' + coordinates.lat + ',' + coordinates.lng + '" target="_blank">Navigasi</a>'+
                     '</div>' +
                     '</div>' +
                     '</div>';
@@ -250,36 +265,40 @@
                 google.maps.event.addListener(marker, 'click', function() {
                     hideAllInfoWindows(map);
                     this.infowindow.open(map, this);
+                    map.setCenter(marker.getPosition());
 
-                    latit = marker.getPosition().lat();
-                    longit = marker.getPosition().lng();
-                });
+                    destination = [];
 
-                marker.addListener('click', function() {
-                    directionsService.route({
-                        origin: pos,
-                        destination: {
-                            lat: latit,
-                            lng: longit
-                        },
-                        travelMode: 'DRIVING'
-                    }, function(response, status) {
-                        if (status === 'OK') {
-                            directionsDisplay.setDirections(response);
-                        } else {
-                            window.alert('Directions request failed due to ' + status);
-                        }
-                    });
+                    destination.push(marker.getPosition().lat(), marker.getPosition().lng());
                 });
 
             }
         }
-
         
+        function setDirection() {
+            var directionsDisplay = direc[0];
+            var directionsService = direc[1];
+
+            directionsService.route({
+                origin: pos,
+                destination: {
+                    lat: destination[0],
+                    lng: destination[1]
+                },
+                travelMode: 'DRIVING'
+            }, function(response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+
         function hideAllInfoWindows(map) {
             markers.forEach(function(marker) {
                 marker.infowindow.close(map, marker);
-            }); 
+            });
         }
 
         function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -289,6 +308,22 @@
                 'Error: Your browser doesn\'t support geolocation.');
             infoWindow.open(map);
         }
+
+        $('#close').click(function(e) {
+            e.preventDefault();
+
+            $('.list-board').hide()
+            $(this).hide();
+            $('#show').show();
+        });
+
+        $('#show').click(function(e) {
+            e.preventDefault();
+
+            $('.list-board').show()
+            $(this).hide();
+            $('#close').show();
+        });
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRt2sZGA36bo9UG78KLWo-v1LpUdqxxMA&callback=myMap" type="text/javascript"></script>
 </body>

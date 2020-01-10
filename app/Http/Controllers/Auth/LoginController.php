@@ -40,7 +40,7 @@ class LoginController extends Controller
     }
 
     public function logout(Request $request) {
-        return redirect('home')->with(Auth::logout());
+        return redirect('/admin')->with(Auth::logout());
     }
 
     /**
